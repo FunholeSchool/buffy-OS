@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lock Screen</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-family: Roboto, sans-serif;
+            text-align: center;
+        }
+        #time {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 96px;
+            font-weight: bold;
+        }
+        #date {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div id="time"></div>
+    <div id="date"></div>
+
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+
+            // Add leading zero for minutes
+            minutes = (minutes < 10 ? "0" : "") + minutes;
+
+            // Format hour
+            var hourString = (hours % 12 === 0 ? 12 : hours % 12); // Handle midnight (0) and noon (12)
+            
+            var timeString = hourString + ":" + minutes;
+            document.getElementById('time').textContent = timeString;
+
+            var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            var month = months[now.getMonth()];
+            var day = now.getDate();
+            var year = now.getFullYear();
+
+            var dateString = month + " " + day + ", " + year;
+            document.getElementById('date').textContent = dateString;
+        }
+
+        // Update time and date every second
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
+</body>
+</html>
